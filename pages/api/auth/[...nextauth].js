@@ -9,14 +9,14 @@ async function refreshAccessToken(token) {
     spotifyApi.setAccessToken(token.accessToken);
     spotifyApi.setRefreshToken(token.refreshToken);
 
-    const { body: refreshedToken } = await spotifyApi.refreshAccessToken();
-
-    // console.log('Refreshed token is', refreshedToken);
+    // send a request to the apotify Api with the access and refresh token in order to refresh the access token
+    const { body: refreshedToken } = await spotifyApi.refreshAccessToken(); 
 
     return {
       ...token,
       accessToken: refreshedToken.access_token,
-      accessTokenExpires: Date.now + refreshedToken.expires_in * 1000,
+      accessTokenExpires: Date.now + refreshedToken.expires_in * 1000, // = one our, because expires_in is 3600
+      // the initial refresh token is valid unless the spotify Api sends a new refresh token
       refreshToken: refreshedToken.refresh_token ?? token.refreshToken,
     };
   } catch (error) {
@@ -30,21 +30,29 @@ async function refreshAccessToken(token) {
 }
 
 export default NextAuth({
-  // Configure one or more authentication providers
+  // configure spotify provider with credentials from spotify developers account
   providers: [
     SpotifyProvider({
       clientId: process.env.NEXT_PUBLIC_CLIENT_ID,
       clientSecret: process.env.NEXT_PUBLIC_CLIENT_SECRET,
+
+      // the login process will be initiated by sending the user to this URL.
       authorization: LOGIN_URL,
     }),
-    // ...add more providers here
   ],
+
+  // a random string used to hash tokens
   secret: process.env.JWT_SECRET,
+
+  // specify page for custom log in
   pages: {
     signIn: '/login',
   },
   callbacks: {
+  
+    // this callback is called whenever a JSON Web Token is created (i.e. at sign in) or updated (i.e whenever a session is accessed in the client). Its content is forwarded to the session callback, where you can control what should be returned to the client. Anything else will be kept from your front-end.
     async jwt({ token, account, user }) {
+      
       // initial sign in
       if (account && user) {
         return {
@@ -56,15 +64,17 @@ export default NextAuth({
         };
       }
 
-      // Return previous token if the access token has not expired
+      // return previous token if the access token has not expired
       if (Date.now() < token.accessTokenExpires) {
         return token;
       }
 
-      // acceess token has expired, so refresh it
+      // refresh access token, if it has expired
       return await refreshAccessToken(token);
     },
 
+    // allocate the necessary token information to the user in a session.
+    // tokens are http only in order to be hidden. The client JavaScript cant read the it.
     async session({ session, token }) {
       session.user.accessToken = token.accessToken;
       session.user.refreshToken = token.refreshToken;

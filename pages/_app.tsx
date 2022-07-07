@@ -6,6 +6,7 @@ import React from 'react'
 
 function MyApp({ Component, pageProps: { session, ...pageProps} }: AppProps) {
   return( 
+    // the higher order component is used to persist the session through the entire app
     <SessionProvider session={session}>
       <RecoilRoot>
         <Component {...pageProps} />

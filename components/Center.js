@@ -37,6 +37,7 @@ function Center() {
   }, [spotifyApi, playlistId])
 
   return (
+    // the Center component takes as much space as possible for itself
     <div className="flex-grow h-screen overflow-y-scroll scrollbar-hide">
       <header className="absolute top-5 right-8">
         <div className="cursor:pointer flex items-center space-x-3 rounded-full bg-black p-1 pr-2 opacity-90 hover:opacity-80 text-white" onClick={() => signOut()}>
