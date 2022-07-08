@@ -27,7 +27,8 @@ const Home: NextPage = () => {
 export default Home
 
 
-// Need this in order to show initial data
+// prefetch data in order to have access to initial session data
+// TODO: understand
 export async function getServerSideProps(context:any){
   const session = await getSession(context)
 

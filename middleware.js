@@ -19,6 +19,6 @@ export async function middleware(req ) {
 
   // redirect to login page, when disallowed request
   if (!token && pathname !== '/login') {
-   // return NextResponse.redirect(new URL('/login', req.url));
+   // TODO: return NextResponse.redirect(new URL('/login', req.url));
   }
 }
