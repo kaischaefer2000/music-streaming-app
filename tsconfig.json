@@ -14,11 +14,14 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-      "baseUrl": "./",
-      "paths": {
-        "crypto": [
-          "node_modules/crypto-js"
-        ]
+    "baseUrl": "./",
+    "paths": {
+      "crypto": [
+        "node_modules/crypto-browserify"
+      ],
+      "stream": [
+        "node_modules/stream-browserify"
+      ]
     },
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/_app.tsx"],
