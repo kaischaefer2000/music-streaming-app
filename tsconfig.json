@@ -13,16 +13,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true,
-    "baseUrl": "./",
-    "paths": {
-      "crypto": [
-        "node_modules/crypto-browserify"
-      ],
-      "stream": [
-        "node_modules/stream-browserify"
-      ]
-    },
+    "incremental": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/_app.tsx"],
   "exclude": ["node_modules"]

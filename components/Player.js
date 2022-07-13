@@ -15,7 +15,6 @@ import {
   FastForwardIcon,
   PauseIcon,
   PlayIcon,
-  ReplyIcon,
   VolumeUpIcon,
 } from '@heroicons/react/solid';
 import { debounce } from 'lodash';
@@ -35,7 +34,6 @@ function Player() {
   const fetchCurrentSong = () => {
     if (!songInfo) {
       spotifyApi.getMyCurrentPlayingTrack().then((data) => {
-        console.log('Now playing: ', data.body?.item);
         setCurrentTrackId(data.body?.item?.id);
 
         spotifyApi.getMyCurrentPlaybackState().then((data) => {

@@ -1,4 +1,6 @@
 import { atom } from 'recoil';
+import { useSession } from 'next-auth/react';
+import useSpotify from '../hooks/useSpotify';
 
 export const playlistState = atom({
   key: 'playlistState',
@@ -7,6 +9,6 @@ export const playlistState = atom({
 
 export const playlistIdState = atom({
   key: 'playlistIdState',
-  // TODO: fetch playlists in order to set default to dynamic value or null
+  // fetch playlists in order to set default to dynamic value or null
   default: '37i9dQZF1EUMDoJuT8yJsl',
 });
