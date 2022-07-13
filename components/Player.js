@@ -98,6 +98,7 @@ function Player() {
           onClick={() => spotifyApi.skipToPrevious()}
           className="button"
         />
+        
 
         {isPlaying ? (
           <PauseIcon onClick={handlePlayPause} className="button h-10 w-10" />
