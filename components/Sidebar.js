@@ -13,8 +13,6 @@ function Sidebar() {
   const [playlistId, setPlaylistId] = useRecoilState(playlistIdState);
   const [site, setSite] = useRecoilState(siteState);
 
-console.log(playlistId)
-
   // get playlists from spotify api
   useEffect(() => {
     if (spotifyApi.getAccessToken()) {
