@@ -12,7 +12,7 @@ function Center() {
 
   return (
     // the Center component takes as much space as possible for itself
-    <div className="h-screen flex-grow overflow-y-scroll scrollbar-hide">
+    <div className="h-screen w-full overflow-y-scroll scrollbar-hide">
       <header className="absolute top-5 right-8">
         <div className="flex items-center space-x-3 rounded-full bg-black p-1 pr-3 text-white opacity-90">
           <img

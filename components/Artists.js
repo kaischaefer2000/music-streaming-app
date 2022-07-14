@@ -32,9 +32,9 @@ function Artists() {
       <section
         className={`h-50 flex items-end space-x-7 bg-gradient-to-b from-purple-800 to-black p-8 text-white `}
       >
-        <h1 className="text-2xl md:text-3xl xl:text-5xl">Artists</h1>
+        <h1 className="text-lg md:text-xl xl:text-3xl bold">Artists</h1>
       </section>
-      <div className="flex flex-wrap p-4 pb-28 text-white justify-around">
+      <div className="flex flex-wrap p-4 pb-28 text-white ">
         {artists.map((artist) => (
           <Artist key={artist.id} name={artist.name} images={artist.images} />
         ))}
