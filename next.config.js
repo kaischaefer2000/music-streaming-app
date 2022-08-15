@@ -4,6 +4,16 @@ module.exports = {
   react: {
     useSuspense: false,
   },
+  images: {
+    domains: [
+      'i.scdn.co',
+      'thisis-images.scdn.co',
+      'mosaic.scdn.co',
+      'seed-mix-image.spotifycdn.com',
+      'lineup-images.scdn.co',
+      'daily-mix.scdn.co',
+    ],
+  },
 };
 
 const intercept = require('intercept-stdout');
