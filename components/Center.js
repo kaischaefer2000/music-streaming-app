@@ -7,20 +7,20 @@ import { useRecoilValue } from 'recoil';
 import { siteState } from '../atoms/siteAtom';
 import Image from 'next/image';
 
-function Center() {
+function Center({ initialPlaylistData }) {
   const { data: session } = useSession();
   const site = useRecoilValue(siteState);
 
   return (
     // the Center component takes as much space as possible for itself
     <div className="h-screen w-full overflow-y-scroll scrollbar-hide">
-      <header className="absolute top-5 right-8">
+      <header className="absolute top-5 right-8 z-50">
         <div className="flex items-center space-x-3 rounded-full bg-black p-1 pr-3 text-white opacity-90">
           <Image
             width="40px"
             height="40px"
             className="h-10 w-10 rounded-full"
-            src={session?.user.image}
+            src={session?.user.image ?? '/spotifyLogo.png'}
             alt=""
           />
           <h2>{session?.user.name}</h2>
@@ -31,7 +31,11 @@ function Center() {
         </div>
       </header>
 
-      {site === 'artists' ? <Artists /> : <Playlist />}
+      {site === 'artists' ? (
+        <Artists />
+      ) : (
+        <Playlist initialPlaylistData={initialPlaylistData} />
+      )}
     </div>
   );
 }

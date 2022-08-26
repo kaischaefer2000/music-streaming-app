@@ -1,16 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import { shuffle } from 'lodash';
+import React, { useEffect } from 'react';
 import { playlistIdState } from '../atoms/playlistAtom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { playlistState } from '../atoms/playlistAtom';
-import useSpotify from '../hooks/useSpotify';
+import SpotifyWebApi from 'spotify-web-api-node';
 import Songs from '../components/Songs';
 import Image from 'next/image';
+import { useSession } from 'next-auth/react';
 
-function Playlist() {
-  const [playlist, setPlaylist] = useRecoilState(playlistState);
-  const spotifyApi = useSpotify();
+function Playlist({ initialPlaylistData }) {
+  const [playlist, setPlaylist] = React.useState(initialPlaylistData);
   const playlistId = useRecoilValue(playlistIdState);
+  const { data: session } = useSession();
+
+  const spotifyApi = new SpotifyWebApi({
+    clientId: process.env.NEXT_PUBLIC_CLIENT_ID,
+    clientSecret: process.env.NEXT_PUBLIC_CLIENT_SECRET,
+  });
+
+  //set Access Token
+  if (session) {
+    if (session.error === 'RefreshAccessTokenError') {
+      signIn();
+    }
+    spotifyApi.setAccessToken(session?.user?.accessToken);
+  }
 
   // get playlist data
   useEffect(() => {
@@ -43,7 +56,7 @@ function Playlist() {
       </section>
 
       <div>
-        <Songs />
+        <Songs playlist={playlist} />
       </div>
     </React.Fragment>
   );

@@ -6,21 +6,9 @@ import { playlistIdState } from '../atoms/playlistAtom';
 import { siteState } from '../atoms/siteAtom';
 import { UserGroupIcon } from '@heroicons/react/solid';
 
-function Sidebar() {
-  const spotifyApi = useSpotify();
-  const { data: session, status } = useSession();
-  const [playlists, setPlaylists] = useState([]);
+function Sidebar({playlists}) {
   const [playlistId, setPlaylistId] = useRecoilState(playlistIdState);
   const [site, setSite] = useRecoilState(siteState);
-
-  // get playlists from spotify api
-  useEffect(() => {
-    if (spotifyApi.getAccessToken()) {
-      spotifyApi.getUserPlaylists().then((data) => {
-        setPlaylists(data.body.items);
-      });
-    }
-  }, [session, spotifyApi]);
 
   return (
     <div className="h-screen overflow-y-scroll border-r border-gray-900 p-5 pb-36 text-sm text-gray-500 scrollbar-hide sm:w-[12rem] md:inline-flex lg:w-[15rem] lg:text-sm">
@@ -35,7 +23,7 @@ function Sidebar() {
 
         <hr className="border-t-[0.1px] border-gray-900" />
 
-        {playlists.map((playlist) => (
+        {playlists ? playlists.map((playlist) => (
           <p
             key={playlist.id}
             onClick={() => {
@@ -46,7 +34,7 @@ function Sidebar() {
           >
             {playlist.name}
           </p>
-        ))}
+        )) : null}
       </div>
     </div>
   );
