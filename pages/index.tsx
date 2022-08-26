@@ -34,8 +34,6 @@ Home.getInitialProps = async (context: any) => {
   // Get session data, to check if the request is authorized
   const session = await getSession(context);
 
-  console.log('getInitialProps');
-
   // Initializing spotify API with credentials
   const spotifyApi = new SpotifyWebApi({
     clientId: process.env.NEXT_PUBLIC_CLIENT_ID,
