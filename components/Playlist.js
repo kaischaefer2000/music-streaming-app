@@ -33,7 +33,7 @@ function Playlist({ initialPlaylistData }) {
         setPlaylist(data.body);
       })
       .catch((err) => console.log(err));
-  }, [spotifyApi, playlistId]);
+  }, [playlistId]);
 
   return (
     <React.Fragment>
